@@ -47,7 +47,7 @@ Route::get('/', function () {
     // ddd($document);
 });
 
-Route::get('/post/{post}', function ($slug) {
+Route::get('/posts/{post}', function ($id) {
     // $path = __DIR__ . "/../resources/posts/{$slug}.html";
 
     // ddd($path);
@@ -68,7 +68,8 @@ Route::get('/post/{post}', function ($slug) {
 
     // $post = cache()->remember("posts.{$slug}", now()->addMinutes(20), fn () => file_get_contents($path));
 
-    $post = Post::find($slug);
+    // $post = Post::find($slug);
+    $post = Post::find($id);
 
     return view('post', ['post' => $post]);
-})->where('post', '[A-z_\-]+');
+});
