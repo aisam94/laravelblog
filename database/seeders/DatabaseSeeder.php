@@ -4,6 +4,9 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use App\Models\Category;
+use App\Models\Post;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,5 +23,59 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        // User::factory(3)->create();
+
+        User::truncate();
+        Category::truncate();
+        Post::truncate();
+
+        $user = User::factory()->create();
+
+        // adding categories
+
+        $personal = Category::create([
+            'name' => 'Personal',
+            'slug' => 'personal',
+        ]);
+
+        $family = Category::create([
+            'name' => 'Family',
+            'slug' => 'family',
+        ]);
+
+        $work = Category::create([
+            'name' => 'Work',
+            'slug' => 'work',
+        ]);
+
+        // adding posts
+
+        Post::create([
+            'user_id' => $user->id,
+            'category_id' => $family->id,
+            'title' => 'My Family Post',
+            'slug' => 'my-family-post',
+            'excerpt' => 'Our holiday trip',
+            'body' => 'This is the story of our holiday....'
+        ]);
+
+        Post::create([
+            'user_id' => $user->id,
+            'category_id' => $work->id,
+            'title' => 'My Work Post',
+            'slug' => 'my-work-post',
+            'excerpt' => 'Our work event',
+            'body' => 'This is the story of our working life....'
+        ]);
+
+        Post::create([
+            'user_id' => $user->id,
+            'category_id' => $personal->id,
+            'title' => 'My Personal Post',
+            'slug' => 'my-personal-post',
+            'excerpt' => 'Our personal event',
+            'body' => 'This is the story of our personal life....'
+        ]);
     }
 }
