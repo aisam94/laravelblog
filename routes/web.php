@@ -19,11 +19,19 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 */
 
 Route::get('/', function () {
-    $posts = Post::latest()->with('category', 'author')->get(); // eager loading
+    // $posts = Post::latest()->with('category', 'author')->get(); // eager loading
+    $posts = Post::latest();
     $categories = Category::all();
+
+    if (request('search')) {
+        $posts
+            ->where('title', 'like', '%' . request('search') . '%')
+            ->orWhere('body', 'like', '%' . request('search') . '%');
+    }
+
     // $posts = Post::all();
 
-    return view('posts', ['posts' => $posts, 'categories' => $categories]);
+    return view('posts', ['posts' => $posts->get(), 'categories' => $categories]);
 
     // $files = File::files(resource_path("posts"));
     // $documents = [];
