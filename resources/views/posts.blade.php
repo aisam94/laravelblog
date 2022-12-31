@@ -12,10 +12,6 @@
         @include('components/post-card', ['post' => $post])
         @endforeach
     </div>
-    <div class="lg:grid lg:grid-cols-3">
-        <!-- @include('components/post-card') -->
-    </div>
-
     @else
     <p class='text-center'>No posts yet. Please check back later.</p>
     @endif
