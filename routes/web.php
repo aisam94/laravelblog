@@ -20,9 +20,10 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 Route::get('/', function () {
     $posts = Post::latest()->with('category', 'author')->get(); // eager loading
+    $categories = Category::all();
     // $posts = Post::all();
 
-    return view('posts', ['posts' => $posts]);
+    return view('posts', ['posts' => $posts, 'categories' => $categories]);
 
     // $files = File::files(resource_path("posts"));
     // $documents = [];
@@ -78,7 +79,7 @@ Route::get('/posts/{post:slug}', function (Post $post) {
 });
 
 Route::get('/categories/{category:slug}', function (Category $category) {
-    return view('posts', ['posts' => $category->posts]);
+    return view('posts', ['posts' => $category->posts, 'categories' => Category::all()]);
 });
 
 Route::get('/authors/{author:username}', function (User $author) {
