@@ -3,9 +3,8 @@
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
-use Spatie\YamlFrontMatter\YamlFrontMatter;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,73 +17,9 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 |
 */
 
-Route::get('/', function () {
-    // $posts = Post::latest()->with('category', 'author')->get(); // eager loading
-    $posts = Post::latest();
-    $categories = Category::all();
+Route::get('/', [PostController::class, 'index']); 
 
-    if (request('search')) {
-        $posts
-            ->where('title', 'like', '%' . request('search') . '%')
-            ->orWhere('body', 'like', '%' . request('search') . '%');
-    }
-
-    // $posts = Post::all();
-
-    return view('posts', ['posts' => $posts->get(), 'categories' => $categories]);
-
-    // $files = File::files(resource_path("posts"));
-    // $documents = [];
-    // $posts = [];
-
-    // foreach ($files as $file) {
-    //     $document = YamlFrontMatter::ParseFile($file);
-    //     $posts[] = new Post(
-    //         $document->title,
-    //         $document->slug,
-    //         $document->excerpt,
-    //         $document->matter('date'),
-    //         $document->body()
-    //     );
-    // };
-
-    // ddd($posts);
-
-    // $posts = Post::all();
-
-    // $document = YamlFrontMatter::ParseFile(
-    //     resource_path('posts/my-fourth-post.html')
-    // );
-
-    // ddd($document);
-});
-
-Route::get('/posts/{post:slug}', function (Post $post) {
-    // $path = __DIR__ . "/../resources/posts/{$slug}.html";
-
-    // ddd($path);
-
-    // if (!file_exists($path)) {
-    //     // dd('file does not exist');
-    //     // ddd('file does not exist');
-    //     // abort(404);
-    //     return redirect('/');
-    // }
-
-    // $post = file_get_contents($path);
-
-    // $post = cache()->remember("posts.{$slug}", 5, function () use ($path) {
-    //     var_dump('file_get_contents');
-    //     return file_get_contents($path);
-    // });
-
-    // $post = cache()->remember("posts.{$slug}", now()->addMinutes(20), fn () => file_get_contents($path));
-
-    // $post = Post::find($slug);
-    // $post = Post::find($id);
-
-    return view('post', ['post' => $post]);
-});
+Route::get('/posts/{post:slug}', [PostController::class, 'show']);
 
 Route::get('/categories/{category:slug}', function (Category $category) {
     return view('posts', ['posts' => $category->posts, 'categories' => Category::all()]);
