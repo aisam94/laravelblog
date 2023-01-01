@@ -17,8 +17,12 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
+     protected $guarded = [];
+
     protected $fillable = [
         'name',
+        'username', // this fix is not in the tutorial lab i think
         'email',
         'password',
     ];
