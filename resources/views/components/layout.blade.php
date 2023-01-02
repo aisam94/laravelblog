@@ -18,6 +18,10 @@
             <div class="mt-8 md:mt-0 flex items-center">
                 @auth
                 <span class="text-xs font-bold capitalize">{{ auth()->user()->name }}</span>
+
+                <a href='/create' class="ml-6 text-xs font-bold uppercase">New Post</a>
+                <a href='/manage/{{ auth()->user() }}' class="ml-6 text-xs font-bold uppercase">Manage</a>
+
                 <form method="POST" action="/logout" class="text-xs font-semi-bold text-blue-500 ml-6">
                     @csrf
                     <button type="submit">Log Out</button>
@@ -25,11 +29,11 @@
                 @else
                 <a href="/register" class="text-xs font-bold uppercase">Register</a>
                 <a href="/login" class="ml-6 text-xs font-bold uppercase">Log In</a>
-                @endauth
 
                 <a href="#" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
                     Subscribe for Updates
                 </a>
+                @endauth
             </div>
         </nav>
 
