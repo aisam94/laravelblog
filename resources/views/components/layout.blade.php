@@ -11,7 +11,7 @@
         <nav class="md:flex md:justify-between md:items-center">
             <div>
                 <a href="/">
-                    <img src="./images/logo.svg" alt="Laracasts Logo" width="165" height="16">
+                    <img src="/images/logo.svg" alt="Laracasts Logo" width="165" height="16">
                 </a>
             </div>
 
@@ -20,7 +20,7 @@
                 <span class="text-xs font-bold capitalize">{{ auth()->user()->name }}</span>
 
                 <a href='/create' class="ml-6 text-xs font-bold uppercase">New Post</a>
-                <a href='/manage/{{ auth()->user() }}' class="ml-6 text-xs font-bold uppercase">Manage</a>
+                <a href='/manage/{{ auth()->user()->name }}' class="ml-6 text-xs font-bold uppercase">Manage</a>
 
                 <form method="POST" action="/logout" class="text-xs font-semi-bold text-blue-500 ml-6">
                     @csrf

@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
@@ -41,3 +40,9 @@ Route::post('/logout', [SessionController::class, 'destroy'])->middleware('auth'
 
 Route::get('/create', [PostController::class, 'create'])->middleware('auth');
 Route::post('/create', [PostController::class, 'store'])->middleware('auth');
+
+Route::get('/manage/{author:username}', [PostController::class, 'manage'])->middleware('auth');
+
+Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->middleware('auth');
+Route::patch('/posts/{post}', [PostController::class, 'update'])->middleware('auth');
+Route::delete('/posts/{post}', [PostController::class, 'destroy'])->middleware('auth');
